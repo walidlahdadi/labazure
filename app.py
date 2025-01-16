@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import math
+import os  # Import to handle environment variables
 
 app = Flask(__name__)
 
@@ -22,4 +23,6 @@ def compute_integral(lower, upper):
     return jsonify(results)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # Azure sets the PORT environment variable. Default to 5000 for local testing.
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
